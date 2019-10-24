@@ -10,9 +10,11 @@ class Vector {
   Vector(const std::size_t size) : elem{new num[size]}, _size{size} {}
 
   // automatically release the acquired memory
+  // RAII: Resource acquisition is initialization. The resource you acquire get released in the distructor.
   ~Vector() { delete[] elem; }
 
   // try to remove the const and recompile
+  // This const??
   std::size_t size() const { return _size; }
 
   num& operator[](const std::size_t i) { return elem[i]; }
@@ -21,6 +23,7 @@ class Vector {
   const num& operator[](const std::size_t i) const { return elem[i]; }
 };
 
+//This const Vector<T> ... means that the compiler, when evaluating v[i], will search for a function with a const Vector in the argument.
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {
   for (auto i = 0u; i < v.size(); ++i)
@@ -38,6 +41,7 @@ int main() {
 
   Vector<double>* pv{&v};
 
+  //Operator overloading with pointers is something tricky. ACHTUNG!
   // first dereference the pointer, then I can use the defined operators
   (*pv)[0] = -99.999;
 
@@ -45,6 +49,7 @@ int main() {
 
   std::cout << *pv << std::endl;
 
+  //Operator overloading with references is perfectly fine tho.
   Vector<double>& rv{v};
 
   rv[5] = 555;

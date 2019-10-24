@@ -1,0 +1,7 @@
+Is this HPC?
+
+Stuff that lives in the stack dies when you get out of the scope in which the variable has been declared. The scope is the portion of memory associated with that element.
+Heap instead DOES NOT get cancelled when you get of the scope.
+Object that live in the heap don't have any name. The new operator just returns an address of that opbject.
+
+

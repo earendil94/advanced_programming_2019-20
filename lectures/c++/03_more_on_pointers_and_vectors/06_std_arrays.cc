@@ -9,6 +9,8 @@ int main() {
   std::array<int, 4> b{a};  // I can copy element-wise from another std::array
                             // this is not possible with plain built-in arrays
   b = a;
+
+  //From c++11 this java-like syntax is available.
   for (auto x : a)
     std::cout << x << " ";
   std::cout << std::endl;
@@ -27,6 +29,7 @@ int main() {
     std::cout << x << " ";
   std::cout << std::endl;
 
+  //Here is actually modifying the array a because it has passed a reference to it.
   for (auto& x : a)
     x *= 10;
 

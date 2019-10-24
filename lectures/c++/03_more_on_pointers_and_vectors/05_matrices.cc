@@ -21,6 +21,7 @@ int main() {
     std::cout << std::endl;
   }
 
+  //The matrix is still represented linearly! So basically it is an array of dimension nxm
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j < 5; ++j)
       std::cout << &ma[i][j] << " ";
@@ -29,6 +30,7 @@ int main() {
 
   // int *pma {ma}; 		// error
   // int *pma[5] {ma};		// error
+  // This way you are actually telling the compiler what he already knows, but this way we can actually use function properly defined on int*
   int* p{reinterpret_cast<int*>(ma)};
   // int* p {&ma[0][0]};
 
@@ -45,6 +47,7 @@ int main() {
   return 0;
 }
 
+//You can also see in p[i*col + j] how he's accessing to the array elements.
 void print_ma(int* p, int row, int col) {
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)

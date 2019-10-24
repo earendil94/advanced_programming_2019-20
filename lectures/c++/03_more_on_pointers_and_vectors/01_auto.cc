@@ -1,7 +1,10 @@
 #include <cmath>
 #include <iostream>
-
+//This line below is interesting af and pretty self-explanatory
 #if __cplusplus > 201103L
+
+template <class T>
+void debug(T);
 
 template <class T>
 auto init(const std::size_t l) {
@@ -31,6 +34,10 @@ int main() {
 
   auto pb = &b;  // guess what.. How can I know?
 
+  //Forcing a compile error to see what is actually the type of pb
+  //debug(pb);
+
+  //As always with template function, you need to specify between <> the type of data used.
   auto ps = init<double>(11);
   delete[] ps;
   return 0;
