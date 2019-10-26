@@ -82,6 +82,7 @@ Modify the class `Vector<typename T>` presented during the lecture exploiting al
 
 *Hints*:
 
+(auto as a return function type)
 - remember to compile with `-std=c++14`
 
 
