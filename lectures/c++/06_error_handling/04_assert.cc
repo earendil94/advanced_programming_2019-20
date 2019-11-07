@@ -4,7 +4,7 @@
 
 #include "ap_error.h"
 
-// implment a square root function that "deals with" negative
+// implement a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
@@ -29,7 +29,9 @@ int main() {
 double square_root(const double d) {
   // test the pre-conditions
   assert(d >= 0 && d <= 50);  // provided by C, no execeptions
-
+  //Compiling a code with -DNDEBUG (aka do not debug) makes the compiler ignore the assert instructions.
+  //The assert JUST MAKES YOUR PROGRAM CRASH: no need to throw and catch exception.
+  //Assert is super used in debugging mode. Just compile your final release with -DNDEBUG
   // AP_ASSERT(d>=0 && d<=50) <<  "d should be in the range [0,50]";
 
   // AP_ASSERT_IN_RANGE(d,0,50);

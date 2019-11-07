@@ -165,6 +165,9 @@ namespace internal {
 #define AP_ERROR(...)                                                          \
   SELECT_MACRO(__VA_ARGS__, _AP_ERROR2, _AP_ERROR1, dummy)(__VA_ARGS__)
 
+//A macro should be one line. Use the backslash for the continuation line instruction
+//If this was a function, we will get __FILE__ of where the function is defined, same for line etc. A macro is subsubstituted in the code whenever called, unlike a function, which will point to a certain location where the function is defined.
+//P.S. __FILE__ and etc are actually preprocessor already defined variables, not macros.
 #define _AP_ERROR2(cond, exception_type)                                       \
   if (!(cond))                                                                 \
   ::internal::AssertHelper<exception_type>{} =                                 \
@@ -184,6 +187,7 @@ namespace internal {
 #define AP_ASSERT(...)                                                         \
   SELECT_MACRO(__VA_ARGS__, _AP_ASSERT2, _AP_ASSERT1, dummy)(__VA_ARGS__)
 
+//This turns on/off the switch on NDEBUGon our code.
 #ifndef NDEBUG
 #  define _AP_ASSERT_(cond, exception_type) AP_ERROR(cond, exception_type)
 #else

@@ -3,7 +3,7 @@
 
 #include "ap_error.h"
 
-// implment a square root function that "deals with" negative
+// implement a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
@@ -22,9 +22,11 @@ int main() {
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
   } catch (const Square_root_invalid& e) {
+    //It's useful to write Macro that return line, user and bla bla producing exception
     std::cerr << e.message << std::endl;
     return 2;
   } catch (const std::exception& e) {
+    //If you don't throw explicitly an exception: this is the way to handle!
     std::cerr << e.what() << std::endl;
     return 1;
   } catch (...) {

@@ -32,15 +32,17 @@ class ManyResources {
   double* ptr;
   Vector v;
 
+ //Use smart pointers (unique or shared). For raw pointers you need to be aware of all the possible leaks.
  public:
   ManyResources() : ptr{nullptr}, v{3} {
     std::cout << "Manyresources" << std::endl;
     try {
+      //What if RAM has finished? new returns an exception! 
       ptr = new double[5];  // new(std::nothrow) double[5] could be better
       AP_ERROR(false) << "Error in ManyResources ctor." << std::endl;
     } catch (...) {
       delete[] ptr;  // <----
-      throw;
+      throw; //Repass the ball to the upper level. No need to respecify the exception.
     }
   }
 
@@ -52,10 +54,12 @@ class ManyResources {
 
 int main() {
   Foo f;
+  //The pointer is written here and not in the try block because it needs to be deleted if something bad happens inside the try block.
   int* raw_ptr = new int[7];
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
     // inside the catch-clause
+    //Since mr will fail in constructor phase, we will catch this exception. 
     ManyResources mr;
     Bar b;
 
