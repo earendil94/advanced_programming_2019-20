@@ -1,0 +1,25 @@
+Async is the lazy function. You don't actually run the async function up until it's needed later in the code.
+
+An allocator is an object which is taking care of spawning enough memory for the map elements and it also constructs them. It takes also care of their deallocation.
+
+Allocator job:
+	AUTO p = <t>(malloc(7*size_of(t));
+
+	new(p) = bla;
+	new(p+1) = bla2;
+
+
+We actually have allocated 2 memory address here
+
+In order to destroy we would actually do:
+
+	p -> ~T();
+	p+1 -> ~T();
+
+	free(p);
+
+A map is basically a red and black tree
+
+&**this: //First you take the object, then you call the reference operator and take the address
+
+	
