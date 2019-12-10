@@ -18,10 +18,13 @@ struct instrumented_base {
     comparison
   };
 
+  //Static means shared in between the objects of this class
+  //Dont static and templates
   static constexpr std::size_t n_ops = 9;
   static double counts[n_ops];
   static const char* counter_names[n_ops];
   static void initialize(std::size_t i) {
+    //Fill works with iterators: begin, end, value
     std::fill(counts, counts + n_ops, 0.0);
     counts[n] = i;
   }
@@ -37,11 +40,13 @@ struct instrumented : instrumented_base {
   T value;
   // Conversions from T and to T:
   instrumented(const T& x) : value(x) {}
-  explicit operator T() const { return value; }
+  //This operator is a conversion operator. You are actually allowing a conversion of the struct to type T
+  explicit operator T() const { return value; } 
 
   template <typename U>
   instrumented(const instrumented<U>& x) : value(x.value) {}
 
+  //It is semi regular if it has the following 4 things
   // Semiregular:
   instrumented(const instrumented& x) : value(x.value) { ++counts[copy_ctor]; }
   instrumented(instrumented&& x) : value{std::move(x)} { ++counts[move_ctor]; }
@@ -91,3 +96,8 @@ struct instrumented : instrumented_base {
 };
 
 #endif
+
+
+//TAKE-ON-MESSAGE: Vector still wins over Set because data are contiguous in memory even though
+//We do a shit ton more of operations.
+

@@ -23,7 +23,7 @@ void vector_instrumented(const std::size_t n, I first, I last) {
 }
 
 int main() {
-  using value_type = instrumented<int>;
+  using value_type = instrumented<int>; 
   value_type::print_header();
   for (std::size_t n = 16; n < (1 << 25); n <<= 1) {
     std::vector<value_type> v(n);
