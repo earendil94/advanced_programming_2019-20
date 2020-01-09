@@ -2,12 +2,13 @@
 
 struct Foo {
   static double s;  // must be defined outside the class
-  // static int si = 0; // error: must be const
-  static const int sc = 9;  // only integral types are allowed
+  // static int si = 0; // error: must be const. //Can't initialize a non-const static.
+  static const int sc = 9;  // only integral types are allowed. //This is just weird instead.
   // static const double sd;  // error
   int i;
 };
 
+//Static members live outside the class. All the objects share the same variable.
 double Foo::s;
 
 // double Foo::s = 0;

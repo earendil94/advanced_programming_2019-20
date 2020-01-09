@@ -1,0 +1,117 @@
+1) A library is a collection of symbols without a main (new definition actually!).
+    We can't generate a library as we generate an executable. Otherwise we will get a complain 
+    from the linker about a missing main. It is a good idea to separate implementation from declaration.
+    We want headers in a folder named include. Remember that include means copy and paste the file.
+    The #ifdef instructions avoid us to copy and paste many times the same definitions complying to the
+    one definition rule.
+    ITALIANO and ENGLISH are called macros and they can be specified in compilation time.
+
+    Shared libraries are preferred in continouos development environments. How to create them?
+
+    When we use the compiler we do:
+        - compilation
+        - linking
+
+    We want to compile the source files, not the headers. By the way, the compilation part is the
+    bottleneck of the compilation/linking process. So it makes sense not to recompile things that
+    don't need to be recompiled. So we compile each source file in its own source file. compilation
+    can be done in parallel.
+
+    You can do multiple includes
+
+    c++ -c src/greetings.cc -I include -I another_folder
+    c++ -c src/conclusion.cc -I include
+
+    Actually we should add this 
+
+    c++ -fpic -c src/greetings.cc -I include -I another_folder
+    c++ -fpic -c src/conclusion.cc -I include
+
+    -f position independent code, our symbol is now addressed through a relative path.
+
+    And if we want macros
+
+    c++ -fpic -DENGLISH -c src/greetings.cc -I include -I another_folder
+    c++ -fpic -DENGLISH -c src/conclusion.cc -I include
+
+    src ---> .o --->
+                        binary
+             .o ---> 
+
+    Now we need to link! If we want a shared library
+
+    .a if a library is static, .so if it is shared (these are conventions)
+
+    c++ greetings.o conclusion.o -shared -o libgreetings.so
+
+    Now that we know the common structure of this thing, it's time to get to the makefile. 
+
+    Some syntax:
+
+    1) Macros. Are the variables of makefile. VAR_NAME=VALUE. To access them $(VAR_NAME)
+    2) Targets. Targets are rule . target_name: dependency_1 dep_2 ....
+                    TAB action_1
+                    TAB action_2
+        Each instruction is executed in each subshell. If you want a for loop, put it in one line.
+
+    If we write make we execute the first target in the makefile. Once all the actions are completed,
+    a file named target is created. 
+
+    Makefile check if a target is up-to-date by itself. It compares the time stamp of the target with 
+    respect to its dependencies. If it's the youngest than don't recompile.
+
+    $@ is the name of the target
+    $^ refers to all the dependencies
+
+    % is the wildcard character in makefile syntax.
+    $< is the first dependency (DOGMA ALERT)
+
+    Rules that have no actions are called prerequisites.
+
+    Since include is a copy and paste, I should recompile even if I change a header file.
+    This is why we need to regenerate greetings.o if the .h changes.
+    The dependencies of a target can be defined in multiple lines. The copy and paste of include
+    is actually done during the .o phase.
+
+    # this is a comment in the makefile.
+
+    Actions are bash commands!
+
+
+2)  Here we have a main that use the previously defined libraries.
+
+    We are not creating a library, we don't add -fpic
+    c++ -c -I include -I../01_greetings_library/include/ main.cc
+    c++ -c -I include -I../01_greetings_library/include/ src/date.cc
+    c++ -c -I include -I../01_greetings_library/include/ src/student.cc
+
+    -l is including something named libgreetings.so -L the folder of the library
+    c++ *.o -l greetings -L ../01_greetings_library/
+
+    BUT
+    ./a.out does not know where to look for the library!
+    we need to export LD_LIBRARY_PATH
+    ldd exe_name tells us the libraries we need
+
+    In the three main steps:
+
+    configure: creates a makefile
+    make: compiles and links files
+    install: copy and paste file in the proper location (sudo permission required to paste there usually)
+
+    If you install newer version of the same library in the same path, IT IS A RECIPE FOR DISASTER.
+    DO ALWAYS ./configure  --prefix=/path/to/smart/place
+    #NEVER UNDERESTIMATE THE POWER OF TYPOS
+    Suggestion ./configure --prefix=/opt/firefox_versionnumber
+    
+    How does module work? Basically export some environment variables.
+
+
+3) A good strategy to define global variables
+
+    - Put extern type global_variable in the header
+    - Put the definition of that variable in a compilation unit.
+
+5) One definition rule.
+
+    

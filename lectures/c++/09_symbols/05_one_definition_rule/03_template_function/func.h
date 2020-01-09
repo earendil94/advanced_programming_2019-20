@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+//Templates are fine to keep into headers.
 template <class T = double>
 void dummy() {
   T t{};

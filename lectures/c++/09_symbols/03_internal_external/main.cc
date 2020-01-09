@@ -1,9 +1,12 @@
 #include "constants.h"
 #include <iostream>
 
+//It is the linker job to find the definition of the function defined here below
 double area_circle(const double);
 double golden_ratio(const double);
-extern int circle_counter;
+//It is a global variable defined in a different compilation unit: not in a different header
+//If you extern, the linker will warn you that there are two global variables with the same name
+extern int circle_counter; 
 
 int main() {
   std::cout << area_circle(1) << std::endl;
