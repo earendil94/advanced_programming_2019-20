@@ -1,15 +1,18 @@
 #/usr/bin/env python3
 
+#Honestly, the following lines are kind of a mess at first glance.
+#Need more proficiency in py to understand this.
+
 from ctypes import *
 dso = CDLL("./libhello.so") # import shared object on POSIX compatible OS
 
 ## functions w/o args
-dso.hello()
+dso.hello() #This invokes our c function
 
 
 ## strings
-dso.repeat.argtypes = [c_char_p]
-dso.repeat.restype = c_int
+dso.repeat.argtypes = [c_char_p] #this defines the argument type (always a list)
+dso.repeat.restype = c_int #this defines a return type(always a single value)
 res = dso.repeat(b"ctypes are great") # use b to pass read-only variable
 
 # use create_string_buffer for a "mutable string"
@@ -26,19 +29,21 @@ for i in range(size):
 
 array_sum = dso.array_sum
 
+#These again set our python stuff to be interpretable c stuff
 array_sum.argtypes = [POINTER(c_double), c_size_t] # note the use of POINTER
+#We don't have c_double_p as for chars
 array_sum.restype = c_double
 
 print("the sum of d_array is", array_sum(d_array,size))
 
 
 ## structs
-class data(Structure):
-    _fields_ = [("i",c_int),
+class data(Structure): #Structure is defined by ctypes
+    _fields_ = [("i",c_int), #The list of tuples must be in order
                 ("name",c_char_p),
                 ("energy",c_double)] # order is crucial otherwise seg-fault
 
-param = data(name=b"Alberto", energy=99.9, i=42)
+param = data(name=b"Alberto", energy=99.9, i=42) #Now data is a normal python class
 
 #dso.use_by_value.argtypes = [data]
 dso.use_by_value(param) # default is by value

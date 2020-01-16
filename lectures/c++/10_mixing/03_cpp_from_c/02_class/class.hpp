@@ -2,7 +2,7 @@
 #define _CLASS_H_
 
 #include <iostream>
-
+//A lot of stuff that does not exist in C
 class Foo {
   int a;
 

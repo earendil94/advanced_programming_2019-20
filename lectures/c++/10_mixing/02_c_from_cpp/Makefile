@@ -2,6 +2,7 @@ CC = cc
 CXX = c++
 EXE = exe
 
+#Always use the linker of the language of the main
 all: $(EXE)
 
 $(EXE): hello.o main.o

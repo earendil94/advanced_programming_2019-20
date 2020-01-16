@@ -1,8 +1,13 @@
 #ifndef _CLASS_C_INTERFACE_H_
 #define _CLASS_C_INTERFACE_H_
 
+//We don't have classes, so we define a pointer to void instead
 typedef void* Foo_c;
 
+//This ifdef instruction to the pre-processor is crucial.
+//Since this header is both included by our cpp and our c code, we need to specify these symbols
+//In order to let the compiler know when to call extern on this interface and when not.
+//Of course the macro activates only in the case you are calling c++.
 #ifdef __cplusplus
 extern "C" {
 #endif

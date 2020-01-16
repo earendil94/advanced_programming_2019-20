@@ -7,6 +7,7 @@ all: $(EXE)
 $(EXE): cpp2c.o main.o
 	$(CC) $^ -lstdc++ -o $@
 
+#This -lstdc++ is to link against the c++ library in order to find our cout function
 main.o: main.c
 
 cpp2c.o: cpp2c.cc

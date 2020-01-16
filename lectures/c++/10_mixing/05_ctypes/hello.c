@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//If you want to link C++ an python, we need to write a C interface for the c++ code.
 void hello() {
   puts("Hello from shared lib");
 }
