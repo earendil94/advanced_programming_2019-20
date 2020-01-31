@@ -15,9 +15,21 @@ class Vector {
 
   // try to remove the const and recompile
   // This const??
-  std::size_t size() const { return _size; }
+  std::size_t size() const { return _size; } //I recon the const here might signal that the vector
+  //on which we are calling the size function is actually const. As in the first function below.
 
-  num& operator[](const std::size_t i) { return elem[i]; }
+  //Trying the non-const version
+  //std::size_t size() { return _size; } 
+  //passing ‘const Vector<double>’ as ‘this’ argument discards qualifiers
+  //So the "middle const" is actually necessary in case you call this function on a const vector!
+
+  num& operator[](const std::size_t i) { return elem[i]; } 
+  //This does not return a const and we get angry
+  //But we need this if we use v[i] as lvalue, which we can!
+
+  //What about this?
+  //const num& operator[](const std::size_t i) { return elem[i]; }
+  //Can't define this and the one before at the same time 
 
   // try to comment this line and recompile
   const num& operator[](const std::size_t i) const { return elem[i]; }
@@ -39,7 +51,7 @@ int main() {
 
   std::cout << v << std::endl;
 
-  Vector<double>* pv{&v};
+  Vector<double>* pv{&v}; //A pointer to a vector
 
   //Operator overloading with pointers is something tricky. ACHTUNG!
   // first dereference the pointer, then I can use the defined operators

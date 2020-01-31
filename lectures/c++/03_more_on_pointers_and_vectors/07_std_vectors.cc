@@ -16,7 +16,7 @@ int main() {
   print_vector(v0, "v0");
   print_vector(v1, "v1");
 
-  v1 = v0;
+  v1 = v0; //This is a deep copy
 
   print_vector(v1, "v1 after copy");
 
@@ -24,11 +24,12 @@ int main() {
     v1.push_back(x); //push_back adds the element at the end of the vector.
 
   print_vector(v1, "v1 after push_back");
+  print_vector(v0, "v0 after v1 push_back"); //It's still the same
 
   for (auto i = 0u; i < v1.size(); ++i)
     std::cout << "v[" << i << "] = " << v1[i] << std::endl;
 
-  std::cout << v1[3] << " " << v1[78] << std::endl;        // no bounds checking
+  //std::cout << v1[3] << " " << v1[78] << std::endl;        // no bounds checking
   std::cout << v1.at(3) << " " << v1.at(78) << std::endl;  // bounds checking
 
   return 0;

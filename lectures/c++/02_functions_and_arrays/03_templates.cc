@@ -10,7 +10,8 @@ int main() {
   char g{'0'}, h{'6'};
 
   std::cout << dwim<int>(a, b) << '\n'
-            << dwim(c, d) << '\n'
+            // << dwim(c, d) << '\n' //This would some them as double
+            << dwim<int>(c, d) << '\n' //This considers c and d integers
             << dwim(e, f) << '\n'
             << dwim(g, h) << std::endl;
   return 0;

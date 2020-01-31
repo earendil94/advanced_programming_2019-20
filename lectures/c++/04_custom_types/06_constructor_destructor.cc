@@ -21,7 +21,8 @@ Foo::Foo(const int i, const double d, const std::string& s)
       _d{d},
       _s{s}
 //You can write variables initialization BEFORE the body of the function in a constructor.
-//The region above can be defined only with a constructor. Variables there are not constructed yet. Here you can (and should call constructors of variables of the class). Here you cannot use = to assign values. Also, initialize variables in the same order you have defined them.
+//The region above can be defined only with a constructor. Variables there are not constructed yet. Here you can (and should call constructors of variables of the class). 
+//Here you cannot use = to assign values. Also, initialize variables in the same order you have defined them.
 //This way with all this giberriesh is the fastest way.
       // _i, _d, _s must be initialized in the same order they have been declared
 

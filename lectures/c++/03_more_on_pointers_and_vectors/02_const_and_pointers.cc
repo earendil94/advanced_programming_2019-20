@@ -18,8 +18,10 @@ int main() {
 
   //This time instead we cannot change you want the compiler to warn you if you are trying to change the memory address of the pointer.
   int* const cp{&a};
-  a = b;
-  *cp = 33;
+  //a = b;
+  print_sentinel(&a, 1);
+  *cp = 33; //This changes the value of the variable to which we are pointing, hence a
+  print_sentinel(&a, 1);
   // cp = &b;   // error
 
   const int* const cpc{&a};
