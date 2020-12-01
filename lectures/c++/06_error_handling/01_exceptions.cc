@@ -15,7 +15,7 @@ int main() {
     std::cout << "please insert a number\n";
     double number;
     std::cin >> number;
-    auto d = square_root(number);
+    auto d = square_root(number); //This is what can fail
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
   } catch (const Negative_number) {

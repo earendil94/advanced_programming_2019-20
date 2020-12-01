@@ -12,4 +12,5 @@ struct bar : public foo {
 int main() {
   bar b;
   b.f(33);
+  b.f('h');
 }

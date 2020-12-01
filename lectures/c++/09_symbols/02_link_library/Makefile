@@ -16,7 +16,6 @@ all: $(EXE)
 %.o: %.cc
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
-
 $(EXE): main.o src/date.o src/student.o
 	$(CXX) $^ -o $(EXE) $(LDFLAGS)
 

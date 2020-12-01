@@ -15,7 +15,7 @@ int main() {
 
   std::cout << "\n\npointers\n";
   Base* p = new Derived;
-  delete p;
+  delete p; //These destroys only base class, derived class will cause a memory leak
 
   return 0;
 }

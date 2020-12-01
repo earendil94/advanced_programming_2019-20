@@ -117,7 +117,7 @@ int main(){
     v.push_back(x);
 
     //Suppose we have a class date
-    //v.emplace_back(4,5,6)
+    v.emplace_back(4,5,6);
     //is like calling v.push_back(Date{4,5,6})
     std::cout << v << std::endl;
 

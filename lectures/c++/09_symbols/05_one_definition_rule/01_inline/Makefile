@@ -1,4 +1,4 @@
-SRC = src1.cc src2.cc main.cc
+SRC = src1.cc src2.cc func.cc main.cc
 CXX = c++
 CXXFLAGS = -Wall -Wextra -g -std=c++11
 OBJ = $(SRC:.cc=.o)
@@ -26,3 +26,4 @@ clean:
 
 src1.o: func.h
 src2.o: func.h
+func.o: func.h

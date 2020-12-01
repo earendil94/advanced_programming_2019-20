@@ -20,7 +20,7 @@ class List {
     }
     explicit node(const std::unique_ptr<node>& p) : value{p->value} {
       if (p->next)
-        next = std::make_unique<node>(p->next);
+        next = std::make_unique<node>(p->next); //This is actually a recursive function
     }
   };
 
@@ -37,7 +37,7 @@ class List {
 
     // head.reset(new node{v, head.release()});
 
-    head = std::make_unique<node>(std::forward<OT>(v), head.release());
+    head = std::make_unique<node>(std::forward<OT>(v), head.release()); //What does forward do?
   }
   // void push_front(T&& v);
 
@@ -54,6 +54,8 @@ class List {
   template <class OT>
   void insert(OT&& v, const method m);
 
+  //A friend can actually access all private stuff within the class even if the declaration of the function
+  //Happens outside the class, like in this case
   template <class O>
   friend std::ostream& operator<<(std::ostream&, const List<O>&);
 
@@ -76,7 +78,7 @@ class List {
 template <typename T>
 template <typename O>
 class List<T>::__iterator {
-  using node = typename List<T>::node;
+  using node = typename List<T>::node; //This is just to avoid the namespace 
   node* current;
 
  public:
@@ -96,7 +98,8 @@ class List<T>::__iterator {
     return *this;
   }
 
-  __iterator operator++(int) noexcept {
+  //Don't know why we need the int here tbh
+  __iterator operator++(int) noexcept { //Is this returning the current value and augmenting one?
     __iterator tmp{current};
     ++(*this);
     return tmp;
@@ -123,7 +126,7 @@ typename List<T>::node* List<T>::tail() noexcept {
 template <class T>
 template <class OT>
 void List<T>::insert(OT&& v, const method m) {
-  if (!head) {
+  if (!head) { //This is basically: if we don't have elements in the list
     // head.reset(new node{v,nullptr});
     head = std::make_unique<node>(std::forward<OT>(v), nullptr);
     return;
@@ -142,6 +145,7 @@ void List<T>::insert(OT&& v, const method m) {
   };
 }
 
+//TODO: why do we have two templates?
 template <class T>
 template <class OT>
 void List<T>::push_back(OT&& v) {
@@ -178,7 +182,16 @@ int main() {
     l.insert(5, method::push_back);
     l.insert(3, method::push_front);
 
+    int a = 7;
+
+    l.insert(a, method::push_front);
+    //std::cout << a << std::endl;
+
     std::cout << l << std::endl;
+
+    *(l.begin()) = 10;
+
+    std::cout << "Inserted 10 at the beginning using the iterator" << std::endl << l << std::endl;
 
     std::vector<int> v(3);
 
@@ -187,6 +200,12 @@ int main() {
     for (auto x : v)
       std::cout << x << std::endl;
     return 0;
+
+    // for (auto x : v)
+    //   std::cout << x << std::endl;
+    // return 0;
+
+
     // auto ol = l;
     // int a = 9;
     // l.insert(14, method::push_front);

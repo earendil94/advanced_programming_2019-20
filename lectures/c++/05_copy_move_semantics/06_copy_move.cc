@@ -34,7 +34,7 @@ class Vector {
   Vector(const Vector& v);
 
   // copy assignment -- deep copy
-  Vector& operator=(const Vector& v);
+  Vector& operator=(const Vector& v); //L-value reference here
   // end of copy semantics
   /////////////////////////
 
@@ -49,7 +49,7 @@ class Vector {
   // Vector(Vector&& v) = default; // ok
 
   // move assignment
-  Vector& operator=(Vector&& v) {
+  Vector& operator=(Vector&& v) { //Right value reference here
     std::cout << "move assignment\n";
     _size = std::move(v._size);
     elem = std::move(v.elem);

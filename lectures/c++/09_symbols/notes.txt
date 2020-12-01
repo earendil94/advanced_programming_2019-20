@@ -57,8 +57,8 @@
     If we write make we execute the first target in the makefile. Once all the actions are completed,
     a file named target is created. 
 
-    Makefile check if a target is up-to-date by itself. It compares the time stamp of the target with 
-    respect to its dependencies. If it's the youngest than don't recompile.
+    Makefile checks if a target is up-to-date by itself. It compares the time stamp of the target with 
+    respect to its dependencies. If it's the youngest then don't recompile.
 
     $@ is the name of the target
     $^ refers to all the dependencies
@@ -113,5 +113,6 @@
     - Put the definition of that variable in a compilation unit.
 
 5) One definition rule.
+
 
     

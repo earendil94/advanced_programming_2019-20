@@ -33,7 +33,8 @@ class Snake : public Animal {
  public:
   Snake(const unsigned int a, const double w, const bool b)
       : Animal{a, w}, dangerous{b} {}
-  explicit Snake(const bool b) : Animal{}, dangerous{b} {}
+  explicit Snake(const bool b) : Animal{}, dangerous{b} {} //Explicit keyword requires us to call
+  //The constructor as it is. No implicit construction available
   void info() const noexcept override {
     Animal::info();
     std::cout << "dangerous:\t" << (dangerous ? "true" : "false") << std::endl;

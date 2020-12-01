@@ -21,7 +21,7 @@ int main() {
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
   } catch (const Square_root_invalid& s) {
-    std::cerr << s.message << std::endl;
+    std::cerr << s.message << std::endl; 
     return 1;
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
